@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link
+            rel="shortcut icon"
+            href="https://i.postimg.cc/D0tQvqzq/image.png"
+            type="image/png"
+    >
+    <meta charset="UTF-8">
+    <title>Entering P I C T U R E S C A N N E R</title>
+</head>
+<body>
+<link METHODS="GET" rel ="stylesheet" href="{{ url_for('static', filename='EnteringStyle.css') }}">
+<div class = "container">
+    <div class ="block-left">
+<h2><font color = "#FFFFFF" face="Garamond">enter into your account or create a new one</font></h2>
+<h4><font color = "#4B0082" face="Garamond">enter your login and password and<br>
+    in case of registration try to make unique login and password</font></h4>
+    </div>
+    <div class ="block-right">
+<form method="post" action="/">
+        <p><input type="text" name="username" placeholder="Username"></p>
+        <p><input type="password" name="password" placeholder="Password"></p>
+        <p><input type="submit" name="create" value="Create account"
+                  style="color: #FFFFFF; background: #0000CD; width: 226px; border-color: #0000CD;"></p>
+        <p><input type="submit" name="enter" value="Enter account"
+                  style="color: #FFFFFF; background: #0000CD; width: 226px; border-color: #0000CD;"></p>
+</form>
+        </div>
+</div>
+<div id="error-message" class="error-message">{% if error_message %}{{ error_message }}{% endif %}</div>
+{% if error_message %}
+    <script>
+      function showErrorMessage() {
+        var errorMessage = document.getElementById('error-message');
+        errorMessage.style.display = 'block';
+
+        setTimeout(function() {
+          errorMessage.style.display = 'none';
+        }, 1500);
+      }
+
+      showErrorMessage();
+    </script>
+  {% endif %}
+</body>
+</html>

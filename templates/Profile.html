@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user.username }} / P I C T U R E S C A N N E R</title>
+    <script>
+    function showForm() {
+      const buttonElement = document.getElementById('changeButton');
+      const formElement = document.getElementById('updateForm');
+      buttonElement.classList.add('hidden');
+      formElement.classList.remove('hidden');
+    }
+
+    function hideForm() {
+      const buttonElement = document.getElementById('changeButton');
+      const formElement = document.getElementById('updateForm');
+      buttonElement.classList.remove('hidden');
+      formElement.classList.add('hidden');
+    }
+  </script>
+</head>
+<link METHODS="GET" rel ="stylesheet" href="{{ url_for('static', filename='ProfileStyle.css') }}">
+<body>
+<div class="container">
+    <h1>{{user.username}}</h1>
+    <h3>Scans amount: {{user.total_scans}}</h3>
+<button id="changeButton" onclick="showForm()">Change account data</button>
+    <form id="updateForm" method="POST" class="hidden" onsubmit="hideForm()">
+        <label for="username">New login:</label>
+        <input type="text" id="username" name="username">
+
+        <label for="password">New password:</label>
+        <input type="password" id="password" name="password">
+
+        <input type="submit" value="Update account data">
+    </form>
+{% if user_scans %}
+    <h2>Your scans</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Original Image</th>
+                <th>Denoised Image</th>
+                <th>Extracted Text</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for scan in user_scans %}
+                <tr>
+                    <td><img src="data:image/png;base64,{{ scan.original_image }}" alt="Original Image"></td>
+                    <td><img src="data:image/png;base64,{{ scan.denoised_image }}" alt="Denoised Image"></td>
+                    <td>{{ scan.scanned_text }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You don't have scans yet!</p>
+{% endif %}
+<div id="error-message" class="error-message">{% if error_message %}{{ error_message }}{% endif %}</div>
+{% if error_message %}
+    <script>
+      function showErrorMessage() {
+        var errorMessage = document.getElementById('error-message');
+        errorMessage.style.display = 'block';
+
+        setTimeout(function() {
+          errorMessage.style.display = 'none';
+        }, 1500);
+      }
+
+      showErrorMessage();
+    </script>
+  {% endif %}
+    </div>
+</body>
+</html>

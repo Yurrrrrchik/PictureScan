@@ -1,0 +1,71 @@
+body {
+background-image: url(https://i.postimg.cc/yNyz0j48/enter-to-scan.png);
+background-size: cover;
+}
+
+.container {
+  background-color: #FFFFFF;
+  border: 1px solid #7FFFD4;
+  border-radius: 40px;
+  height: 330px;
+  margin-left: 745px;
+  margin-right: 115px;
+  margin-top: 310px;
+  text-align: center;
+}
+
+.block-left {
+  background: linear-gradient(to left, #00BFFF, #3CE8FF);
+  border-radius: 40px 0 0 40px;
+  width:50%;
+  height: 330px;
+  overflow:auto;
+  float:left;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+.block-right {
+  background: linear-gradient(to left, #3CE8FF, #00BFFF);
+  border-radius: 0 40px 40px 0;
+  width:50%;
+  height: 330px;
+  overflow:auto;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+.error-message {
+      position: fixed;
+      top: 87%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #FFFFFF;
+      color: #191970;
+      padding-left:10px;
+      padding-right:10px;
+      padding-top:10px;
+      padding-bottom:10px;
+      border-radius: 10px;
+      display: none;
+      font-size:25px;
+      font-family: Broadway;
+    }
+
+input {
+  width: 220px;
+  background: rgba(0,0,0,0);
+  border-radius: 5px;
+  border-color: #00BFFF;
+  border-outline: #4169E1;
+  font-family: 'Raleway', sans-serif;
+  color: #D3D3D3;
+}
+
+input::placeholder {
+  color: #D3D3D3;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>P I C T U R E S C A N N E R</title>
+</head>
+<link METHODS="GET" rel ="stylesheet" href="{{ url_for('static', filename='MainPageStyle.css') }}">
+<header>
+<div class="leave-button-placement">
+    <form action="/logout">
+        <button class="leave-button">LEAVE</button>
+    </form>
+</div>
+</header>
+<body>
+<div class="container">
+    <form action="/scanning_form">
+        <button class="block">
+            <img src="https://i.postimg.cc/R0FzySdz/image.png" alt="SCAN">
+            <p>SCAN</p>
+        </button>
+    </form>
+    <form action="/home">
+        <button class="block">
+            <img src="https://i.postimg.cc/Z5Ykvb1y/house.png" alt="HOME">
+            <p>HOME</p>
+        </button>
+    </form>
+</div>
+</body>
+</html>

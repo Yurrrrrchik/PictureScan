@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>P I C T U R E S C A N N I N G</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+               $('.input-file input[type=file]').on('change', function(){
+                   let file = this.files[0];
+                   $(this).closest('.input-file').find('.input-file-text').text(file.name);
+               });
+           });
+
+           function handleImageUpload(event) {
+     const file = event.target.files[0];
+     const reader = new FileReader();
+
+     reader.onload = function(e) {
+       const imageElement = document.getElementById('previewImage');
+       const h2el = document.getElementById('h2');
+       const h2el1 = document.getElementById('h2_1');
+       const h2el2 = document.getElementById('h2_2');
+       const text = document.getElementById('text');
+       const denoisedImage = document.getElementById('denoisedImage');
+
+       imageElement.src = e.target.result;
+       imageElement.style.display = 'block';
+       h2el.style.display = 'block';
+
+       // Hide the denoised image
+       denoisedImage.style.display = 'none';
+       h2el1.style.display = 'none';
+       h2el2.style.display = 'none';
+       text.style.display = 'none';
+     }
+
+     reader.readAsDataURL(file);
+   }
+
+           window.addEventListener('DOMContentLoaded', function() {
+         const previewImage = document.getElementById('previewImage');
+         previewImage.addEventListener('load', function() {
+           if (previewImage.naturalWidth > 500 || previewImage.naturalHeight > 500) {
+             let newWidth = previewImage.naturalWidth;
+             let newHeight = previewImage.naturalHeight;
+             if (newWidth > 500) {
+               newWidth = 500;
+               newHeight = Math.floor((newWidth / previewImage.naturalWidth) * previewImage.naturalHeight);
+             }
+             if (newHeight > 500) {
+               newHeight = 500;
+               newWidth = Math.floor((newHeight / previewImage.naturalHeight) * previewImage.naturalWidth);
+             }
+             previewImage.style.width = newWidth + 'px';
+             previewImage.style.height = newHeight + 'px';
+           }
+         });
+       });
+
+           window.addEventListener('DOMContentLoaded', function() {
+         const previewImage = document.getElementById('denoisedImage');
+         previewImage.addEventListener('load', function() {
+           if (previewImage.naturalWidth > 500 || previewImage.naturalHeight > 500) {
+             let newWidth = previewImage.naturalWidth;
+             let newHeight = previewImage.naturalHeight;
+             if (newWidth > 500) {
+               newWidth = 500;
+               newHeight = Math.floor((newWidth / previewImage.naturalWidth) * previewImage.naturalHeight);
+             }
+             if (newHeight > 500) {
+               newHeight = 500;
+               newWidth = Math.floor((newHeight / previewImage.naturalHeight) * previewImage.naturalWidth);
+             }
+             previewImage.style.width = newWidth + 'px';
+             previewImage.style.height = newHeight + 'px';
+           }
+         });
+       });
+    </script>
+</head>
+<link METHODS="GET" rel="stylesheet" href="{{ url_for('static', filename='ScanningFormStyle.css') }}">
+<body>
+<div class="container">
+    <form enctype="multipart/form-data" method="POST">
+        <label class="input-file">
+            <span class="input-file-text" type="text"></span>
+            <input type="file" id="file" name="file" accept="image/*" onchange="handleImageUpload(event)">
+            <span class="input-file-btn">Choose picture to scan</span>
+        </label>
+        <select name="language">
+            <option value="eng">Choose text language</option>
+            <option value="eng">English</option>
+            <option value="rus">Russian</option>
+            <option value="spa">Spanish</option>
+            <option value="fra">French</option>
+            <option value="deu">Deutch</option>
+            <option value="ita">Italian</option>
+            <option value="chi_sim">Chinese (simplified)</option>
+            <option value="chi_tra">Chinese (traditional)</option>
+            <option value="jpn">Japanese</option>
+            <option value="pol">Polish</option>
+        </select>
+        <button type="submit" class="scan-file-btn" name="scan">SCAN</button>
+        <h2 id="h2">Before</h2>
+        <img id="previewImage" src="#" alt="Input Image" name="inputImg" style="max-width: 500px; max-height: 500px;">
+        {% if processed_image != '' %}
+        <h2 id="h2_1">After</h2>
+        <img src="data:image/png;base64,{{ processed_image }}" alt="Denoised Image" name="denoisedImg"
+             id="denoisedImage" style="max-width: 500px; max-height: 500px;">
+        {% endif %}
+        {% if extracted_text != '' %}
+        <h2 id="h2_2">Extracted text</h2>
+        <p id="text" name="text">{{extracted_text}}</p>
+        <button type="submit" name="save">SAVE</button>
+        {% endif %}
+    </form>
+</div>
+</body>
+</html>
